@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>预拌混凝土出厂合格证</title>
+  <style>
+    :root {
+      --blue1: #0b4b86;
+      --blue2: #1b6fb0;
+      --cardRadius: 22px;
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: #ffffff;
+      color: #111;
+    }
+
+    /* 顶部蓝色条（接近视频） */
+    .banner {
+      margin: 0;
+      padding: 18px 16px;
+      text-align: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 22px;
+      background: linear-gradient(90deg, var(--blue1), var(--blue2));
+    }
+
+    /* 内容区：居中卡片（接近视频） */
+    .page {
+      padding: 14px 14px 24px;
+    }
+
+    .card {
+      max-width: 720px;
+      margin: 14px auto 0;
+      background: #fff;
+      border-radius: var(--cardRadius);
+      box-shadow: 0 10px 26px rgba(0, 0, 0, .10);
+      padding: 22px 18px 18px;
+    }
+
+    /* 输入框（蓝色描边） */
+    .input {
+      width: 100%;
+      height: 52px;
+      border-radius: 14px;
+      border: 2px solid rgba(27, 111, 176, .55);
+      outline: none;
+      padding: 0 14px;
+      font-size: 16px;
+    }
+
+    .input:focus {
+      border-color: rgba(27, 111, 176, .95);
+      box-shadow: 0 0 0 4px rgba(27, 111, 176, .12);
+    }
+
+    /* 确认按钮（深蓝渐变，胶囊） */
+    .btn {
+      width: 100%;
+      height: 52px;
+      margin-top: 14px;
+      border: 0;
+      border-radius: 999px;
+      font-size: 17px;
+      font-weight: 600;
+      color: #fff;
+      background: linear-gradient(90deg, #0a4a85, #1b6fb0);
+      box-shadow: 0 10px 20px rgba(27, 111, 176, .18);
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn:active {
+      transform: translateY(1px)
+    }
+
+    .err {
+      display: none;
+      margin-top: 10px;
+      color: #d93025;
+      font-size: 14px;
+    }
+
+    /* 第二屏：显示你的表格图片（保证一模一样） */
+    .hidden {
+      display: none
+    }
+
+    .certWrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 10px 12px 22px;
+    }
+
+    .certImg {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 10px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, .08);
+      background: #fff;
+    }
+
+    .hint {
+      font-size: 12px;
+      color: #666;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 第1屏：验证码页（和视频类似） -->
+  <div id="screenVerify">
+    <div class="banner">预拌混凝土出厂合格证</div>
+    <div class="page">
+      <div class="card">
+        <input id="code" class="input" placeholder="请输入验证码" inputmode="text" />
+        <button id="btn" class="btn">确认</button>
+        <div id="err" class="err">验证码错误</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 第2屏：表格展示页（你提供的 cert.png） -->
+  <div id="screenCert" class="hidden">
+    <div class="certWrap">
+      <img class="certImg" src="./cert.png" alt="合格证" />
+      <div class="hint">（提示：如果图片很长，可上下滑动查看全部）</div>
+    </div>
+  </div>
+
+  <script>
+    // ✅ 这里把验证码写死成固定值（改成你想要的）
+    const FIXED_CODE = "1320Y8LHSAAV7AHK";
+
+    const input = document.getElementById("code");
+    const btn = document.getElementById("btn");
+    const err = document.getElementById("err");
+    const screenVerify = document.getElementById("screenVerify");
+    const screenCert = document.getElementById("screenCert");
+
+    function verify() {
+      const v = (input.value || "").trim();
+      if (v === FIXED_CODE) {
+        err.style.display = "none";
+        screenVerify.classList.add("hidden");
+        screenCert.classList.remove("hidden");
+        window.scrollTo(0, 0);
+      } else {
+        err.style.display = "block";
+      }
+    }
+
+    btn.addEventListener("click", verify);
+    input.addEventListener("keydown", (e) => { if (e.key === "Enter") verify(); });
+  </script>
+
+</body>
+
+</html>
